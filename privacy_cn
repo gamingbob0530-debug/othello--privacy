@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私权政策 - 黑白棋大师</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #333; }
+        h1 { font-size: 24px; }
+        h2 { font-size: 18px; margin-top: 30px; }
+        p { margin: 10px 0; }
+        .date { color: #888; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <h1>隐私权政策</h1>
+    <p class="date">最后更新日期：2026 年 4 月 1 日</p>
+
+    <p>欢迎使用「黑白棋大师」（以下简称「本 App」）。本隐私权政策说明我们如何收集、使用及保护您的信息。</p>
+
+    <h2>1. 我们收集的信息</h2>
+    <p>本 App 本身不会直接收集您的个人信息。然而，本 App 使用 Google AdMob 提供广告服务，AdMob 可能会收集以下信息：</p>
+    <ul>
+        <li>设备广告标识符（IDFA）</li>
+        <li>广告互动数据（如观看次数、点击次数）</li>
+        <li>设备性能及诊断数据</li>
+    </ul>
+
+    <h2>2. 信息用途</h2>
+    <p>上述信息仅用于以下目的：</p>
+    <ul>
+        <li>提供及改善广告服务</li>
+        <li>广告效果分析</li>
+        <li>App 性能优化</li>
+    </ul>
+
+    <h2>3. 第三方服务</h2>
+    <p>本 App 使用以下第三方服务：</p>
+    <ul>
+        <li><strong>Google AdMob</strong>：用于显示奖励广告。详细信息请参阅 <a href="https://policies.google.com/privacy" target="_blank">Google 隐私权政策</a>。</li>
+    </ul>
+
+    <h2>4. 数据存储</h2>
+    <p>本 App 的游戏进度（如已击败的对手记录）仅存储在您的设备本机，不会上传至任何服务器。</p>
+
+    <h2>5. 儿童隐私</h2>
+    <p>本 App 并非专门为 13 岁以下儿童设计。我们不会刻意收集儿童的个人信息。</p>
+
+    <h2>6. 政策变更</h2>
+    <p>我们可能会不定期更新本隐私权政策。任何变更将在本页面公布，并更新「最后更新日期」。</p>
+
+    <h2>7. 联系我们</h2>
+    <p>如有任何隐私相关问题，请通过电子邮件联系我们。</p>
+
+    <h2>8. 音乐版权</h2>
+    <p>本 App 背景音乐由 <strong>たう</strong>（<a href="https://bgmusic.jp" target="_blank">bgmusic.jp</a>）提供。</p>
+
+    <hr style="margin-top: 40px; border: none; border-top: 1px solid #ddd;">
+    <p style="font-size: 13px; color: #999;">Othello Master - Privacy Policy</p>
+</body>
+</html>
