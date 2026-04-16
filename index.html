@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>風格黑白棋 - Styled Othello</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, 'Helvetica Neue', sans-serif;
+            background: #1a1208;
+            color: #f0e0c8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 頂部裝飾線 */
+        .top-accent {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #c4a040, #f0d060, #c4a040, transparent);
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        /* 棋盤裝飾 */
+        .board-deco {
+            display: inline-grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            padding: 8px;
+            background: #2a1e0e;
+            border-radius: 12px;
+            border: 2px solid #5a4020;
+            margin-bottom: 32px;
+        }
+
+        .board-deco .cell {
+            width: 28px;
+            height: 28px;
+            background: #3a5a3a;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .board-deco .stone {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .stone-black {
+            background: radial-gradient(circle at 35% 35%, #555, #111);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .stone-white {
+            background: radial-gradient(circle at 35% 35%, #fff, #ccc);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* 標題 */
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f0d060;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #c4a040;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* 說明文字 */
+        .description {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #d4c4a0;
+            margin-bottom: 40px;
+            text-align: left;
+            padding: 0 8px;
+        }
+
+        /* App Store 按鈕 */
+        .app-store-link {
+            display: inline-block;
+            margin-bottom: 48px;
+            transition: transform 0.2s;
+        }
+
+        .app-store-link:hover {
+            transform: scale(1.05);
+        }
+
+        .app-store-link img {
+            height: 50px;
+        }
+
+        /* 連結區塊 */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .links a {
+            display: block;
+            padding: 14px 24px;
+            background: #2a1e0e;
+            border: 1px solid #5a4020;
+            border-radius: 10px;
+            color: #f0d060;
+            text-decoration: none;
+            font-size: 15px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .links a:hover {
+            background: #3a2e18;
+            border-color: #c4a040;
+        }
+
+        .links .link-label {
+            font-size: 13px;
+            color: #8a7a5a;
+            margin-top: 4px;
+        }
+
+        /* 特色列表 */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 48px;
+            text-align: left;
+        }
+
+        .feature {
+            padding: 16px;
+            background: #2a1e0e;
+            border-radius: 10px;
+            border: 1px solid #3a2a14;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .feature-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #f0d060;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            font-size: 12px;
+            color: #a09070;
+            line-height: 1.5;
+        }
+
+        /* 底部 */
+        footer {
+            padding: 24px;
+            font-size: 12px;
+            color: #5a4a30;
+            text-align: center;
+        }
+
+        footer a {
+            color: #8a7a50;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #c4a040;
+        }
+
+        /* 分隔線 */
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: #5a4020;
+            margin: 0 auto 32px;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 26px; }
+            .features { grid-template-columns: 1fr; }
+            .board-deco .cell { width: 24px; height: 24px; }
+            .board-deco .stone { width: 16px; height: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-accent"></div>
+
+    <div class="container">
+        <!-- 棋盤裝飾 -->
+        <div style="margin-top: 40px;"></div>
+        <div class="board-deco">
+            <div class="cell"></div>
+            <div class="cell"><div class="stone stone-black"></div></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"><div class="stone stone-white"></div></div>
+            <div class="cell"><div class="stone stone-black"></div></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"><div class="stone stone-black"></div></div>
+            <div class="cell"><div class="stone stone-white"></div></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"><div class="stone stone-white"></div></div>
+            <div class="cell"></div>
+        </div>
+
+        <!-- 標題 -->
+        <h1>風格黑白棋</h1>
+        <p class="subtitle">Styled Othello</p>
+
+        <!-- 說明 -->
+        <p class="description">
+            9 位風格迥異的 AI 棋手，各有獨門策略。從新手村一路挑戰到最終 Boss，
+            每位對手都有專屬的動畫表情與對弈台詞。黑棋通關後，還能解鎖白棋二周目，
+            以後手身份重新征服所有對手。
+        </p>
+
+        <!-- App Store -->
+        <a class="app-store-link" href="https://apps.apple.com/us/app/styled-othello-local-pvp/id6761454399" target="_blank">
+            <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/zh-tw?size=250x83" alt="Download on the App Store">
+        </a>
+
+        <!-- 特色 -->
+        <div class="features">
+            <div class="feature">
+                <div class="feature-title">9 位 AI 棋手</div>
+                <div class="feature-desc">每位對手使用不同策略，從穩守角落到全面壓制</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">動態表情系統</div>
+                <div class="feature-desc">AI 會根據局勢展現得意、緊張等動畫表情</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">本機雙人對戰</div>
+                <div class="feature-desc">和朋友面對面，同一台裝置即可對弈</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">白棋二周目</div>
+                <div class="feature-desc">黑棋全破後解鎖後手模式，角色全新造型</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 連結 -->
+        <div class="links">
+            <a href="privacy.html">
+                隱私權政策 / Privacy Policy
+                <div class="link-label">繁體中文 · 简体中文 · English</div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Styled Othello. All rights reserved.</p>
+        <p style="margin-top: 8px;">
+            <a href="mailto:gamingbob0530@gmail.com">gamingbob0530@gmail.com</a>
+        </p>
+    </footer>
+</body>
+</html>
