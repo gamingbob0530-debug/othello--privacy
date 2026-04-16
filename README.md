@@ -1,2 +1,2 @@
-# othello--privacy
-othello​-privacy
+# othello
+othello
