@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隱私權政策 - 風格黑白棋 | Privacy Policy - Styled Othello</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, 'Helvetica Neue', sans-serif;
+            background: #1a1208;
+            color: #d4c4a0;
+            min-height: 100vh;
+        }
+
+        /* 頂部裝飾線 */
+        .top-accent {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #c4a040, #f0d060, #c4a040, transparent);
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        /* 返回首頁 */
+        .back-link {
+            display: inline-block;
+            color: #c4a040;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #f0d060;
+        }
+
+        /* 語言切換 */
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn {
+            padding: 8px 20px;
+            border: 1px solid #5a4020;
+            border-radius: 8px;
+            background: #2a1e0e;
+            color: #a09070;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            border-color: #c4a040;
+            color: #f0d060;
+        }
+
+        .lang-btn.active {
+            background: #3a2e18;
+            border-color: #f0d060;
+            color: #f0d060;
+            font-weight: 600;
+        }
+
+        /* 內容區 */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f0d060;
+            margin-bottom: 8px;
+        }
+
+        .date {
+            color: #8a7a5a;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .intro {
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0d060;
+            margin-top: 28px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        ul {
+            margin: 10px 0 10px 20px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin: 4px 0;
+        }
+
+        a {
+            color: #c4a040;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #f0d060;
+        }
+
+        strong {
+            color: #e0d0a0;
+        }
+
+        hr {
+            margin-top: 40px;
+            border: none;
+            border-top: 1px solid #3a2a14;
+        }
+
+        footer {
+            padding: 24px;
+            font-size: 12px;
+            color: #5a4a30;
+            text-align: center;
+        }
+
+        footer a {
+            color: #8a7a50;
+        }
+
+        footer a:hover {
+            color: #c4a040;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 22px; }
+            .container { padding: 24px 16px 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-accent"></div>
+
+    <div class="container">
+        <a class="back-link" href="index.html">← 返回首頁 / Back to Home</a>
+
+        <!-- 語言切換 -->
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="switchLang('zh-Hant')">繁體中文</button>
+            <button class="lang-btn" onclick="switchLang('zh-Hans')">简体中文</button>
+            <button class="lang-btn" onclick="switchLang('en')">English</button>
+        </div>
+
+        <!-- 繁體中文 -->
+        <div id="lang-zh-Hant" class="lang-content active">
+            <h1>隱私權政策</h1>
+            <p class="date">最後更新日期：2026 年 4 月 1 日</p>
+
+            <p class="intro">歡迎使用「風格黑白棋」（以下簡稱「本 App」）。本隱私權政策說明我們如何收集、使用及保護您的資訊。</p>
+
+            <h2>1. 我們收集的資訊</h2>
+            <p>本 App 本身不會直接收集您的個人資訊。然而，本 App 使用 Google AdMob 提供廣告服務，AdMob 可能會收集以下資訊：</p>
+            <ul>
+                <li>裝置廣告識別碼（IDFA）</li>
+                <li>廣告互動資料（如觀看次數、點擊次數）</li>
+                <li>裝置效能及診斷資料</li>
+            </ul>
+
+            <h2>2. 資訊用途</h2>
+            <p>上述資訊僅用於以下目的：</p>
+            <ul>
+                <li>提供及改善廣告服務</li>
+                <li>廣告效果分析</li>
+                <li>App 效能優化</li>
+            </ul>
+
+            <h2>3. 第三方服務</h2>
+            <p>本 App 使用以下第三方服務：</p>
+            <ul>
+                <li><strong>Google AdMob</strong>：用於顯示獎勵廣告。詳細資訊請參閱 <a href="https://policies.google.com/privacy" target="_blank">Google 隱私權政策</a>。</li>
+            </ul>
+
+            <h2>4. 資料儲存</h2>
+            <p>本 App 的遊戲進度（如已擊敗的對手記錄）僅儲存在您的裝置本機，不會上傳至任何伺服器。</p>
+
+            <h2>5. 兒童隱私</h2>
+            <p>本 App 並非專門為 13 歲以下兒童設計。我們不會刻意收集兒童的個人資訊。</p>
+
+            <h2>6. 政策變更</h2>
+            <p>我們可能會不定期更新本隱私權政策。任何變更將在本頁面公布，並更新「最後更新日期」。</p>
+
+            <h2>7. 聯絡我們</h2>
+            <p>如有任何隱私相關問題，請透過電子郵件聯繫我們：<a href="mailto:gamingbob0530@gmail.com">gamingbob0530@gmail.com</a></p>
+
+            <h2>8. 音樂版權</h2>
+            <p>本 App 背景音樂由 <strong>たう</strong>（<a href="https://bgmusic.jp" target="_blank">bgmusic.jp</a>）提供。</p>
+        </div>
+
+        <!-- 简体中文 -->
+        <div id="lang-zh-Hans" class="lang-content">
+            <h1>隐私政策</h1>
+            <p class="date">最后更新日期：2026 年 4 月 1 日</p>
+
+            <p class="intro">欢迎使用「风格黑白棋」（以下简称「本 App」）。本隐私政策说明我们如何收集、使用及保护您的信息。</p>
+
+            <h2>1. 我们收集的信息</h2>
+            <p>本 App 本身不会直接收集您的个人信息。然而，本 App 使用 Google AdMob 提供广告服务，AdMob 可能会收集以下信息：</p>
+            <ul>
+                <li>设备广告标识符（IDFA）</li>
+                <li>广告互动数据（如观看次数、点击次数）</li>
+                <li>设备性能及诊断数据</li>
+            </ul>
+
+            <h2>2. 信息用途</h2>
+            <p>上述信息仅用于以下目的：</p>
+            <ul>
+                <li>提供及改善广告服务</li>
+                <li>广告效果分析</li>
+                <li>App 性能优化</li>
+            </ul>
+
+            <h2>3. 第三方服务</h2>
+            <p>本 App 使用以下第三方服务：</p>
+            <ul>
+                <li><strong>Google AdMob</strong>：用于显示奖励广告。详细信息请参阅 <a href="https://policies.google.com/privacy" target="_blank">Google 隐私政策</a>。</li>
+            </ul>
+
+            <h2>4. 数据存储</h2>
+            <p>本 App 的游戏进度（如已击败的对手记录）仅存储在您的设备本地，不会上传至任何服务器。</p>
+
+            <h2>5. 儿童隐私</h2>
+            <p>本 App 并非专门为 13 岁以下儿童设计。我们不会刻意收集儿童的个人信息。</p>
+
+            <h2>6. 政策变更</h2>
+            <p>我们可能会不定期更新本隐私政策。任何变更将在本页面公布，并更新「最后更新日期」。</p>
+
+            <h2>7. 联系我们</h2>
+            <p>如有任何隐私相关问题，请通过电子邮件联系我们：<a href="mailto:gamingbob0530@gmail.com">gamingbob0530@gmail.com</a></p>
+
+            <h2>8. 音乐版权</h2>
+            <p>本 App 背景音乐由 <strong>たう</strong>（<a href="https://bgmusic.jp" target="_blank">bgmusic.jp</a>）提供。</p>
+        </div>
+
+        <!-- English -->
+        <div id="lang-en" class="lang-content">
+            <h1>Privacy Policy</h1>
+            <p class="date">Last Updated: April 1, 2026</p>
+
+            <p class="intro">Welcome to "Styled Othello" (hereinafter referred to as "the App"). This privacy policy explains how we collect, use, and protect your information.</p>
+
+            <h2>1. Information We Collect</h2>
+            <p>The App itself does not directly collect your personal information. However, the App uses Google AdMob for advertising services, which may collect the following information:</p>
+            <ul>
+                <li>Device advertising identifier (IDFA)</li>
+                <li>Ad interaction data (such as view count, click count)</li>
+                <li>Device performance and diagnostic data</li>
+            </ul>
+
+            <h2>2. Use of Information</h2>
+            <p>The above information is used solely for the following purposes:</p>
+            <ul>
+                <li>Providing and improving advertising services</li>
+                <li>Advertising performance analysis</li>
+                <li>App performance optimization</li>
+            </ul>
+
+            <h2>3. Third-Party Services</h2>
+            <p>The App uses the following third-party services:</p>
+            <ul>
+                <li><strong>Google AdMob</strong>: Used for displaying rewarded ads. For more details, please refer to the <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a>.</li>
+            </ul>
+
+            <h2>4. Data Storage</h2>
+            <p>Game progress (such as defeated opponent records) is stored only on your local device and is never uploaded to any server.</p>
+
+            <h2>5. Children's Privacy</h2>
+            <p>The App is not specifically designed for children under 13. We do not intentionally collect personal information from children.</p>
+
+            <h2>6. Policy Changes</h2>
+            <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date.</p>
+
+            <h2>7. Contact Us</h2>
+            <p>If you have any privacy-related questions, please contact us via email: <a href="mailto:gamingbob0530@gmail.com">gamingbob0530@gmail.com</a></p>
+
+            <h2>8. Music Credits</h2>
+            <p>Background music in the App is provided by <strong>たう</strong> (<a href="https://bgmusic.jp" target="_blank">bgmusic.jp</a>).</p>
+        </div>
+
+        <hr>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Styled Othello. All rights reserved.</p>
+        <p style="margin-top: 8px;">
+            <a href="mailto:gamingbob0530@gmail.com">gamingbob0530@gmail.com</a>
+        </p>
+    </footer>
+
+    <script>
+        function switchLang(lang) {
+            // 隱藏所有語言內容
+            document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+
+            // 顯示選中的語言
+            document.getElementById('lang-' + lang).classList.add('active');
+
+            // 標記按鈕
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => {
+                if ((lang === 'zh-Hant' && btn.textContent === '繁體中文') ||
+                    (lang === 'zh-Hans' && btn.textContent === '简体中文') ||
+                    (lang === 'en' && btn.textContent === 'English')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // 更新 html lang 屬性
+            document.documentElement.lang = lang;
+        }
+
+        // 根據瀏覽器語言自動選擇
+        (function() {
+            const userLang = navigator.language || navigator.userLanguage || '';
+            if (userLang.startsWith('zh-Hans') || userLang === 'zh-CN') {
+                switchLang('zh-Hans');
+            } else if (userLang.startsWith('en')) {
+                switchLang('en');
+            }
+            // 預設繁體中文，不需要額外處理
+
+            // 支援 URL 參數切換語言，例如 privacy.html?lang=en
+            const params = new URLSearchParams(window.location.search);
+            const langParam = params.get('lang');
+            if (langParam === 'en') switchLang('en');
+            else if (langParam === 'zh-Hans' || langParam === 'cn') switchLang('zh-Hans');
+            else if (langParam === 'zh-Hant' || langParam === 'tw') switchLang('zh-Hant');
+        })();
+    </script>
+</body>
+</html>
