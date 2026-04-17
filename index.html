@@ -4,69 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>風格黑白棋 - Styled Othello</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='12' cy='20' r='10' fill='%23fff' stroke='%232a2a2a' stroke-width='2'/%3E%3Ccircle cx='20' cy='12' r='10' fill='%232a2a2a' stroke='%232a2a2a' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Iansui&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, 'Helvetica Neue', sans-serif;
-            background: #1a1208;
-            color: #f0e0c8;
+            font-family: 'Kalam', 'Iansui', cursive;
+            background: #faf8f4;
+            color: #2a2a2a;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            overflow-x: hidden;
         }
 
-        /* 頂部裝飾線 */
-        .top-accent {
+        /* 筆觸邊框效果 */
+        .brush-border {
+            position: relative;
+            border: none;
+        }
+
+        .brush-border::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border: 3px solid #2a2a2a;
+            border-radius: 12px;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect x='2' y='2' width='196' height='196' rx='12' fill='none' stroke='black' stroke-width='3' stroke-dasharray='8 3 2 3' stroke-linecap='round'/%3E%3C/svg%3E");
+            mask-size: 100% 100%;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect x='2' y='2' width='196' height='196' rx='12' fill='none' stroke='black' stroke-width='3' stroke-dasharray='8 3 2 3' stroke-linecap='round'/%3E%3C/svg%3E");
+            -webkit-mask-size: 100% 100%;
+            pointer-events: none;
+        }
+
+        /* 簡化筆觸：用不規則圓角 + 手繪陰影 */
+        .ink-card {
+            border: 2.5px solid #2a2a2a;
+            border-radius: 18px 14px 20px 12px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .ink-card:hover {
+            transform: translateY(-2px) rotate(-0.5deg);
+            box-shadow: 4px 6px 0 rgba(0,0,0,0.12);
+        }
+
+        /* 頂部裝飾 */
+        .top-bar {
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #c4a040, #f0d060, #c4a040, transparent);
+            height: 4px;
+            background: #2a2a2a;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 540px;
             width: 100%;
-            padding: 40px 24px;
+            margin: 0 auto;
+            padding: 32px 24px 40px;
             text-align: center;
         }
 
-        /* 棋盤裝飾 */
-        .board-deco {
-            display: inline-grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 8px;
-            background: #2a1e0e;
-            border-radius: 12px;
-            border: 2px solid #5a4020;
-            margin-bottom: 32px;
+        /* Logo */
+        .logo-area {
+            margin-bottom: 8px;
         }
 
-        .board-deco .cell {
-            width: 28px;
-            height: 28px;
-            background: #3a5a3a;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .logo-stones {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 82px;
+            margin-bottom: 12px;
         }
 
-        .board-deco .stone {
-            width: 20px;
-            height: 20px;
+        .logo-stone {
+            position: absolute;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
+            border: 2.5px solid #2a2a2a;
         }
 
-        .stone-black {
-            background: radial-gradient(circle at 35% 35%, #555, #111);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        .logo-stone-white {
+            background: #fff;
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+            left: 0;
+            bottom: 0;
         }
 
-        .stone-white {
-            background: radial-gradient(circle at 35% 35%, #fff, #ccc);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        .logo-stone-black {
+            background: #2a2a2a;
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+            right: 0;
+            top: 0;
         }
 
         /* 語言切換 */
@@ -74,30 +106,31 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
 
         .lang-btn {
-            padding: 6px 16px;
-            border: 1px solid #5a4020;
-            border-radius: 8px;
-            background: #2a1e0e;
-            color: #a09070;
+            padding: 5px 14px;
+            border: 2px solid #ccc;
+            border-radius: 10px 8px 12px 8px;
+            background: transparent;
+            color: #999;
             font-size: 13px;
+            font-family: 'Kalam', 'Iansui', cursive;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .lang-btn:hover {
-            border-color: #c4a040;
-            color: #f0d060;
+            border-color: #2a2a2a;
+            color: #2a2a2a;
         }
 
         .lang-btn.active {
-            background: #3a2e18;
-            border-color: #f0d060;
-            color: #f0d060;
-            font-weight: 600;
+            border-color: #2a2a2a;
+            color: #2a2a2a;
+            font-weight: 700;
+            background: rgba(0,0,0,0.04);
         }
 
         .lang-content { display: none; }
@@ -105,34 +138,24 @@
 
         /* 標題 */
         h1 {
-            font-size: 32px;
+            font-size: 40px;
             font-weight: 700;
-            color: #f0d060;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+            letter-spacing: 4px;
         }
 
         .subtitle {
-            font-size: 16px;
-            color: #c4a040;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-        }
-
-        /* 說明文字 */
-        .description {
-            font-size: 15px;
-            line-height: 1.8;
-            color: #d4c4a0;
-            margin-bottom: 40px;
-            text-align: left;
-            padding: 0 8px;
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
         /* App Store 按鈕 */
         .app-store-link {
             display: inline-block;
-            margin-bottom: 48px;
+            margin-bottom: 32px;
             transition: transform 0.2s;
         }
 
@@ -141,125 +164,291 @@
         }
 
         .app-store-link img {
-            height: 50px;
+            height: 48px;
         }
 
-        /* 連結區塊 */
-        .links {
+        /* 角色字卡輪播 */
+        .carousel-section {
+            margin-bottom: 40px;
+        }
+
+        .carousel-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .carousel-viewport {
+            overflow: hidden;
+            border-radius: 16px;
+            margin: 0 -4px;
+        }
+
+        .carousel-track {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 48px;
+            transition: transform 0.4s ease;
         }
 
-        .links a {
-            display: block;
-            padding: 14px 24px;
-            background: #2a1e0e;
-            border: 1px solid #5a4020;
-            border-radius: 10px;
-            color: #f0d060;
-            text-decoration: none;
-            font-size: 15px;
-            transition: background 0.2s, border-color 0.2s;
+        .carousel-slide {
+            min-width: 100%;
+            padding: 0 4px;
         }
 
-        .links a:hover {
-            background: #3a2e18;
-            border-color: #c4a040;
+        /* 角色字卡 */
+        .char-slide {
+            background: #fff;
+            border: 2.5px solid #2a2a2a;
+            border-radius: 18px 14px 20px 12px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.08);
+            padding: 28px 24px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            text-align: left;
         }
 
-        .links .link-label {
+        .char-slide-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid #2a2a2a;
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .char-slide-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .char-slide-stage {
+            font-size: 11px;
+            color: #aaa;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .char-slide-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .char-slide-animal {
             font-size: 13px;
-            color: #8a7a5a;
-            margin-top: 4px;
+            color: #888;
+            margin-bottom: 10px;
         }
 
-        /* 特色列表 */
+        .char-slide-quote {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #555;
+            font-style: italic;
+            border-left: 2.5px solid #ddd;
+            padding-left: 12px;
+        }
+
+        /* Boss 字卡 */
+        .char-slide.boss-slide {
+            background: #faf8f4;
+            border-style: dashed;
+        }
+
+        .boss-mystery-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2.5px dashed #aaa;
+            background: #f0ede6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .boss-mystery-q {
+            font-size: 48px;
+            font-weight: 700;
+            color: #bbb;
+        }
+
+        .boss-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            color: #fff;
+            background: #2a2a2a;
+            padding: 2px 10px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        /* 輪播指示器 */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 2px solid #2a2a2a;
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.2s;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: #2a2a2a;
+        }
+
+        /* 輪播箭頭 */
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .carousel-arrow {
+            width: 36px;
+            height: 36px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            background: transparent;
+            color: #888;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .carousel-arrow:hover {
+            border-color: #2a2a2a;
+            color: #2a2a2a;
+        }
+
+        /* 特色 */
         .features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 48px;
+            gap: 12px;
+            margin-bottom: 36px;
             text-align: left;
         }
 
         .feature {
+            background: #fff;
+            border: 2px solid #e0ddd6;
+            border-radius: 14px 10px 16px 10px;
             padding: 16px;
-            background: #2a1e0e;
-            border-radius: 10px;
-            border: 1px solid #3a2a14;
         }
 
         .feature-title {
             font-size: 14px;
-            font-weight: 600;
-            color: #f0d060;
+            font-weight: 700;
+            color: #1a1a1a;
             margin-bottom: 4px;
         }
 
         .feature-desc {
             font-size: 12px;
-            color: #a09070;
+            color: #888;
             line-height: 1.5;
+        }
+
+        /* 分隔線（墨跡風） */
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: #ddd;
+            margin: 0 auto 28px;
+            border-radius: 2px;
+        }
+
+        /* 連結 */
+        .links a {
+            display: block;
+            padding: 14px 24px;
+            background: #fff;
+            border: 2px solid #e0ddd6;
+            border-radius: 12px 10px 14px 10px;
+            color: #2a2a2a;
+            text-decoration: none;
+            font-size: 15px;
+            transition: border-color 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .links a:hover {
+            border-color: #2a2a2a;
+        }
+
+        .links .link-label {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 4px;
         }
 
         /* 底部 */
         footer {
             padding: 24px;
             font-size: 12px;
-            color: #5a4a30;
+            color: #bbb;
             text-align: center;
         }
 
         footer a {
-            color: #8a7a50;
+            color: #999;
             text-decoration: none;
         }
 
         footer a:hover {
-            color: #c4a040;
+            color: #2a2a2a;
         }
 
-        /* 分隔線 */
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: #5a4020;
-            margin: 0 auto 32px;
+        /* CTA 文字 */
+        .cta-text {
+            font-size: 13px;
+            color: #aaa;
+            margin-top: 4px;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 26px; }
+            h1 { font-size: 32px; }
             .features { grid-template-columns: 1fr; }
-            .board-deco .cell { width: 24px; height: 24px; }
-            .board-deco .stone { width: 16px; height: 16px; }
+            .char-slide { padding: 20px 16px; gap: 14px; }
+            .char-slide-avatar { width: 80px; height: 80px; }
+            .boss-mystery-circle { width: 80px; height: 80px; }
+            .boss-mystery-q { font-size: 40px; }
+            .char-slide-name { font-size: 20px; }
+            .logo-stones { width: 84px; height: 70px; }
+            .logo-stone { width: 48px; height: 48px; }
         }
     </style>
 </head>
 <body>
-    <div class="top-accent"></div>
+    <div class="top-bar"></div>
 
     <div class="container">
-        <!-- 棋盤裝飾 -->
-        <div style="margin-top: 40px;"></div>
-        <div class="board-deco">
-            <div class="cell"></div>
-            <div class="cell"><div class="stone stone-black"></div></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"><div class="stone stone-white"></div></div>
-            <div class="cell"><div class="stone stone-black"></div></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"><div class="stone stone-black"></div></div>
-            <div class="cell"><div class="stone stone-white"></div></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"><div class="stone stone-white"></div></div>
-            <div class="cell"></div>
+        <!-- Logo -->
+        <div class="logo-area">
+            <div class="logo-stones">
+                <div class="logo-stone logo-stone-white"></div>
+                <div class="logo-stone logo-stone-black"></div>
+            </div>
         </div>
 
         <!-- 語言切換 -->
@@ -274,15 +463,72 @@
             <h1>風格黑白棋</h1>
             <p class="subtitle">Styled Othello</p>
 
-            <p class="description">
-                9 位風格迥異的 AI 棋手，各有獨門策略。從新手村一路挑戰到最終 Boss，
-                每位對手都有專屬的動畫表情與對弈台詞。黑棋通關後，還能解鎖白棋二周目，
-                以後手身份重新征服所有對手。
-            </p>
-
             <a class="app-store-link" href="https://apps.apple.com/us/app/styled-othello-local-pvp/id6761454399" target="_blank">
                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/zh-tw?size=250x83" alt="Download on the App Store">
             </a>
+
+            <!-- 角色字卡輪播 -->
+            <div class="carousel-section">
+                <div class="carousel-title">挑戰 AI 棋手</div>
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carousel-zh-Hant">
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/fang.png" alt="蒼牙">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 1</div>
+                                    <div class="char-slide-name">蒼牙</div>
+                                    <div class="char-slide-animal">狼・武士</div>
+                                    <div class="char-slide-quote">「耐心是最好的武器。等你露出破綻，就是我反擊的時刻。」</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/prism.png" alt="幻彩">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 5</div>
+                                    <div class="char-slide-name">幻彩</div>
+                                    <div class="char-slide-animal">變色龍・魔術師</div>
+                                    <div class="char-slide-quote">「能攻能守，我會隨著局勢變換戰術，你永遠猜不到下一步。」</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/shadow.png" alt="豹影">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 8</div>
+                                    <div class="char-slide-name">豹影</div>
+                                    <div class="char-slide-animal">獵豹・運動員</div>
+                                    <div class="char-slide-quote">「我會封鎖你所有的退路。當你發現無處可走時，一切已經太遲了。」</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide boss-slide">
+                                <div class="boss-mystery-circle">
+                                    <span class="boss-mystery-q">?</span>
+                                </div>
+                                <div class="char-slide-info">
+                                    <div class="boss-tag">FINAL BOSS</div>
+                                    <div class="char-slide-name">？？？</div>
+                                    <div class="char-slide-animal">最終 Boss</div>
+                                    <div class="char-slide-quote">「集所有戰術於一身，毫無弱點。你準備好了嗎？」</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="dots-zh-Hant"></div>
+                <div class="carousel-nav">
+                    <button class="carousel-arrow" onclick="moveCarousel('zh-Hant', -1)">&larr;</button>
+                    <button class="carousel-arrow" onclick="moveCarousel('zh-Hant', 1)">&rarr;</button>
+                </div>
+                <p class="cta-text">還有 5 位對手等你來挑戰...</p>
+            </div>
+
+            <div class="divider"></div>
 
             <div class="features">
                 <div class="feature">
@@ -318,15 +564,71 @@
             <h1>风格黑白棋</h1>
             <p class="subtitle">Styled Othello</p>
 
-            <p class="description">
-                9 位风格迥异的 AI 棋手，各有独门策略。从新手村一路挑战到最终 Boss，
-                每位对手都有专属的动画表情与对弈台词。黑棋通关后，还能解锁白棋二周目，
-                以后手身份重新征服所有对手。
-            </p>
-
             <a class="app-store-link" href="https://apps.apple.com/us/app/styled-othello-local-pvp/id6761454399" target="_blank">
                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/zh-cn?size=250x83" alt="在 App Store 下载">
             </a>
+
+            <div class="carousel-section">
+                <div class="carousel-title">挑战 AI 棋手</div>
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carousel-zh-Hans">
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/fang.png" alt="苍牙">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 1</div>
+                                    <div class="char-slide-name">苍牙</div>
+                                    <div class="char-slide-animal">狼・武士</div>
+                                    <div class="char-slide-quote">「耐心是最好的武器。等你露出破绽，就是我反击的时刻。」</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/prism.png" alt="幻彩">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 5</div>
+                                    <div class="char-slide-name">幻彩</div>
+                                    <div class="char-slide-animal">变色龙・魔术师</div>
+                                    <div class="char-slide-quote">「能攻能守，我会随着局势变换战术，你永远猜不到下一步。」</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/shadow.png" alt="豹影">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 8</div>
+                                    <div class="char-slide-name">豹影</div>
+                                    <div class="char-slide-animal">猎豹・运动员</div>
+                                    <div class="char-slide-quote">「我会封锁你所有的退路。当你发现无处可走时，一切已经太迟了。」</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide boss-slide">
+                                <div class="boss-mystery-circle">
+                                    <span class="boss-mystery-q">?</span>
+                                </div>
+                                <div class="char-slide-info">
+                                    <div class="boss-tag">FINAL BOSS</div>
+                                    <div class="char-slide-name">？？？</div>
+                                    <div class="char-slide-animal">最终 Boss</div>
+                                    <div class="char-slide-quote">「集所有战术于一身，毫无弱点。你准备好了吗？」</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="dots-zh-Hans"></div>
+                <div class="carousel-nav">
+                    <button class="carousel-arrow" onclick="moveCarousel('zh-Hans', -1)">&larr;</button>
+                    <button class="carousel-arrow" onclick="moveCarousel('zh-Hans', 1)">&rarr;</button>
+                </div>
+                <p class="cta-text">还有 5 位对手等你来挑战...</p>
+            </div>
+
+            <div class="divider"></div>
 
             <div class="features">
                 <div class="feature">
@@ -362,16 +664,71 @@
             <h1>Styled Othello</h1>
             <p class="subtitle">風格黑白棋</p>
 
-            <p class="description">
-                Challenge 9 AI opponents, each with a unique play style. Battle your way from beginner
-                to the final boss — every opponent has animated expressions and in-game dialogue.
-                After clearing all stages with black, unlock the White Piece Mode and conquer them
-                all over again as second player.
-            </p>
-
             <a class="app-store-link" href="https://apps.apple.com/us/app/styled-othello-local-pvp/id6761454399" target="_blank">
                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store">
             </a>
+
+            <div class="carousel-section">
+                <div class="carousel-title">Meet the Opponents</div>
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carousel-en">
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/fang.png" alt="Fang">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 1</div>
+                                    <div class="char-slide-name">Fang</div>
+                                    <div class="char-slide-animal">Wolf · Samurai</div>
+                                    <div class="char-slide-quote">"Patience is my weapon. The moment you slip, I strike back with everything."</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/prism.png" alt="Prism">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 5</div>
+                                    <div class="char-slide-name">Prism</div>
+                                    <div class="char-slide-animal">Chameleon · Magician</div>
+                                    <div class="char-slide-quote">"Offense or defense — I shift with the game. You'll never see the next move coming."</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide">
+                                <img class="char-slide-avatar" src="images/shadow.png" alt="Shadow">
+                                <div class="char-slide-info">
+                                    <div class="char-slide-stage">Stage 8</div>
+                                    <div class="char-slide-name">Shadow</div>
+                                    <div class="char-slide-animal">Cheetah · Athlete</div>
+                                    <div class="char-slide-quote">"I'll cut off every escape route. By the time you notice, it's already too late."</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="char-slide boss-slide">
+                                <div class="boss-mystery-circle">
+                                    <span class="boss-mystery-q">?</span>
+                                </div>
+                                <div class="char-slide-info">
+                                    <div class="boss-tag">FINAL BOSS</div>
+                                    <div class="char-slide-name">???</div>
+                                    <div class="char-slide-animal">Final Boss</div>
+                                    <div class="char-slide-quote">"Master of every tactic, with no weaknesses. Are you ready?"</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="dots-en"></div>
+                <div class="carousel-nav">
+                    <button class="carousel-arrow" onclick="moveCarousel('en', -1)">&larr;</button>
+                    <button class="carousel-arrow" onclick="moveCarousel('en', 1)">&rarr;</button>
+                </div>
+                <p class="cta-text">5 more opponents await...</p>
+            </div>
+
+            <div class="divider"></div>
 
             <div class="features">
                 <div class="feature">
@@ -411,6 +768,79 @@
     </footer>
 
     <script>
+        // 輪播邏輯
+        const carousels = {};
+
+        function initCarousel(lang) {
+            const track = document.getElementById('carousel-' + lang);
+            const dotsContainer = document.getElementById('dots-' + lang);
+            if (!track) return;
+            const slides = track.querySelectorAll('.carousel-slide');
+            const count = slides.length;
+            carousels[lang] = { current: 0, count: count };
+
+            // 生成 dots
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = function() { goToSlide(lang, i); };
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function goToSlide(lang, index) {
+            const c = carousels[lang];
+            if (!c) return;
+            c.current = index;
+            const track = document.getElementById('carousel-' + lang);
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+
+            const dots = document.getElementById('dots-' + lang).querySelectorAll('.carousel-dot');
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        }
+
+        function moveCarousel(lang, dir) {
+            const c = carousels[lang];
+            if (!c) return;
+            let next = c.current + dir;
+            if (next < 0) next = c.count - 1;
+            if (next >= c.count) next = 0;
+            goToSlide(lang, next);
+        }
+
+        // 自動輪播
+        function autoPlay() {
+            ['zh-Hant', 'zh-Hans', 'en'].forEach(lang => {
+                const c = carousels[lang];
+                if (!c) return;
+                // 只自動播放目前可見的語言
+                const el = document.getElementById('lang-' + lang);
+                if (el && el.classList.contains('active')) {
+                    moveCarousel(lang, 1);
+                }
+            });
+        }
+
+        // 初始化
+        ['zh-Hant', 'zh-Hans', 'en'].forEach(initCarousel);
+        setInterval(autoPlay, 4000);
+
+        // 觸控滑動支援
+        ['zh-Hant', 'zh-Hans', 'en'].forEach(lang => {
+            const track = document.getElementById('carousel-' + lang);
+            if (!track) return;
+            let startX = 0;
+            track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend', e => {
+                const diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) {
+                    moveCarousel(lang, diff > 0 ? 1 : -1);
+                }
+            }, { passive: true });
+        });
+
+        // 語言切換
         function switchLang(lang) {
             document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
