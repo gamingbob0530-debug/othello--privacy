@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>風格黑白棋 - Styled Othello</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='12' cy='20' r='10' fill='%23fff' stroke='%232a2a2a' stroke-width='2'/%3E%3Ccircle cx='20' cy='12' r='10' fill='%232a2a2a' stroke='%232a2a2a' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="images/app-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
@@ -71,34 +71,13 @@
             margin-bottom: 8px;
         }
 
-        .logo-stones {
-            position: relative;
-            display: inline-block;
-            width: 100px;
-            height: 82px;
-            margin-bottom: 12px;
-        }
-
-        .logo-stone {
-            position: absolute;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
+        .logo-icon {
+            width: 88px;
+            height: 88px;
+            border-radius: 20px;
             border: 2.5px solid #2a2a2a;
-        }
-
-        .logo-stone-white {
-            background: #fff;
-            box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
-            left: 0;
-            bottom: 0;
-        }
-
-        .logo-stone-black {
-            background: #2a2a2a;
-            box-shadow: 2px 3px 0 rgba(0,0,0,0.15);
-            right: 0;
-            top: 0;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+            margin-bottom: 12px;
         }
 
         /* 語言切換 */
@@ -368,6 +347,76 @@
             line-height: 1.5;
         }
 
+        /* 棋魂介紹區塊 */
+        .soul-section {
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .soul-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .soul-subtitle {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .soul-card {
+            background: linear-gradient(135deg, #fdfcfa 0%, #f5f0e8 100%);
+            border: 2.5px solid #2a2a2a;
+            border-radius: 20px 16px 22px 14px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.08);
+            padding: 28px 24px;
+            text-align: left;
+        }
+
+        .soul-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .soul-step {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .soul-step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2a2a2a;
+            color: #faf8f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .soul-step-text {
+            flex: 1;
+        }
+
+        .soul-step-text strong {
+            display: block;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .soul-step-text span {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.6;
+        }
+
         /* 分隔線（墨跡風） */
         .divider {
             width: 80px;
@@ -434,8 +483,7 @@
             .boss-mystery-circle { width: 80px; height: 80px; }
             .boss-mystery-q { font-size: 40px; }
             .char-slide-name { font-size: 20px; }
-            .logo-stones { width: 84px; height: 70px; }
-            .logo-stone { width: 48px; height: 48px; }
+            .logo-icon { width: 72px; height: 72px; border-radius: 16px; }
         }
     </style>
 </head>
@@ -445,10 +493,7 @@
     <div class="container">
         <!-- Logo -->
         <div class="logo-area">
-            <div class="logo-stones">
-                <div class="logo-stone logo-stone-white"></div>
-                <div class="logo-stone logo-stone-black"></div>
-            </div>
+            <img class="logo-icon" src="images/app-icon.png" alt="Styled Othello">
         </div>
 
         <!-- 語言切換 -->
@@ -546,6 +591,46 @@
                 <div class="feature">
                     <div class="feature-title">白棋二周目</div>
                     <div class="feature-desc">黑棋全破後解鎖後手模式，角色全新造型</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 棋魂記憶系統 -->
+            <div class="soul-section">
+                <div class="soul-title">棋魂記憶</div>
+                <div class="soul-subtitle">你的棋風，你的弈靈</div>
+                <div class="soul-card">
+                    <div class="soul-steps">
+                        <div class="soul-step">
+                            <div class="soul-step-icon">1</div>
+                            <div class="soul-step-text">
+                                <strong>在地學習你的棋風</strong>
+                                <span>每一盤棋都會在裝置上分析你的落子風格——攻守取向、角落偏好、翻轉效率，全部本地運算，不上傳任何數據。</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">2</div>
+                            <div class="soul-step-text">
+                                <strong>棋色檢定 — 發現你的靈魂色</strong>
+                                <span>累積足夠場數後，系統會為你分析出專屬的「棋魂色」，以獨特色彩呈現你的棋風個性。</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">3</div>
+                            <div class="soul-step-text">
+                                <strong>孵化你的弈靈獸</strong>
+                                <span>弈靈蛋會隨著你的對局逐漸成長，最終孵化為一隻代表你棋風的弈靈獸。</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">4</div>
+                            <div class="soul-step-text">
+                                <strong>讓你的 AI 替你下棋</strong>
+                                <span>弈靈獸是學習了你棋風的專屬 AI——在對局中按下弈靈按鈕，牠就會用你的風格替你落子。</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -651,6 +736,46 @@
 
             <div class="divider"></div>
 
+            <!-- 棋魂记忆系统 -->
+            <div class="soul-section">
+                <div class="soul-title">棋魂记忆</div>
+                <div class="soul-subtitle">你的棋风，你的弈灵</div>
+                <div class="soul-card">
+                    <div class="soul-steps">
+                        <div class="soul-step">
+                            <div class="soul-step-icon">1</div>
+                            <div class="soul-step-text">
+                                <strong>在地学习你的棋风</strong>
+                                <span>每一盘棋都会在设备上分析你的落子风格——攻守取向、角落偏好、翻转效率，全部本地运算，不上传任何数据。</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">2</div>
+                            <div class="soul-step-text">
+                                <strong>棋色检定 — 发现你的灵魂色</strong>
+                                <span>累积足够场数后，系统会为你分析出专属的「棋魂色」，以独特色彩呈现你的棋风个性。</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">3</div>
+                            <div class="soul-step-text">
+                                <strong>孵化你的弈灵兽</strong>
+                                <span>弈灵蛋会随着你的对局逐渐成长，最终孵化为一只代表你棋风的弈灵兽。</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">4</div>
+                            <div class="soul-step-text">
+                                <strong>让你的 AI 替你下棋</strong>
+                                <span>弈灵兽是学习了你棋风的专属 AI——在对局中按下弈灵按钮，它就会用你的风格替你落子。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
             <div class="links">
                 <a href="privacy.html?lang=zh-Hans">
                     隐私政策
@@ -746,6 +871,46 @@
                 <div class="feature">
                     <div class="feature-title">White Piece Mode</div>
                     <div class="feature-desc">Clear all stages to unlock a second playthrough with new character designs</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Soul Memory System -->
+            <div class="soul-section">
+                <div class="soul-title">Soul Memory</div>
+                <div class="soul-subtitle">Your Style, Your Spirit</div>
+                <div class="soul-card">
+                    <div class="soul-steps">
+                        <div class="soul-step">
+                            <div class="soul-step-icon">1</div>
+                            <div class="soul-step-text">
+                                <strong>On-Device Style Learning</strong>
+                                <span>Every game analyzes your play style locally — aggression, corner preference, flip efficiency. All computed on your device, nothing uploaded.</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">2</div>
+                            <div class="soul-step-text">
+                                <strong>Soul Color Analysis</strong>
+                                <span>After enough games, the system reveals your unique "Soul Color" — a visual representation of your playing personality.</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">3</div>
+                            <div class="soul-step-text">
+                                <strong>Hatch Your Spirit Beast</strong>
+                                <span>A Spirit Egg grows with every match you play, eventually hatching into a Spirit Beast that embodies your style.</span>
+                            </div>
+                        </div>
+                        <div class="soul-step">
+                            <div class="soul-step-icon">4</div>
+                            <div class="soul-step-text">
+                                <strong>Let Your AI Play for You</strong>
+                                <span>Your Spirit Beast is an AI trained on your style — tap the Spirit button mid-game and it plays moves just like you would.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
